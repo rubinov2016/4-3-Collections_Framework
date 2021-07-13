@@ -8,12 +8,20 @@ import java.util.List;
 public class IssueRepository {
     private List<Issue> items = new ArrayList<>();
 
+
+    public void setStatusById(int id, boolean status) {
+        for (Issue item : items) {
+            if (item.getId() == id) {
+                item.setStatus(status);
+            }
+        }
+    }
+
     public List<Issue> getAll() {
         return items;
     }
 
     public Issue getById(int id) {
-        //Fixme -  is index from ArralyList equal to id??
         for (Issue item : items) {
             if (item.getId() == id) {
                 return item;
@@ -30,6 +38,10 @@ public class IssueRepository {
             }
         }
         return result;
+    }
+
+    public List<Issue> getOpen() {
+        return this.getByStatus(true);
     }
 
     public List<Issue> getByAuthor(String author) {
@@ -79,5 +91,6 @@ public class IssueRepository {
         }
         return result;
     }
+
 }
 

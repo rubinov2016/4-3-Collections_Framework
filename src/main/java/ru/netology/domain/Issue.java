@@ -26,4 +26,5 @@ public class Issue  implements Comparable<Issue> {
     public int compareTo(Issue o) {
         return id - o.id;
     }
+
 }

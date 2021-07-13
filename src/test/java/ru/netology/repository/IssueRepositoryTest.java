@@ -19,6 +19,30 @@ public class IssueRepositoryTest {
     Issue third = new Issue(3, "name", "body", "author", null, true, null);
 
     @Test
+    void shouldSetStatusById() {
+        repository.add(first);
+        repository.add(second);
+        repository.add(third);
+        boolean expected = false;
+        repository.setStatusById(first.getId(), expected);
+        Issue actualIssue = repository.getById(first.getId());
+        boolean actual = actualIssue.isStatus();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldGetOpen() {
+        repository.add(first);
+        repository.add(second);
+        repository.add(third);
+        List<Issue> expected = new ArrayList<Issue>();
+        expected.add(first);
+        expected.add(third);
+        List<Issue> actual = repository.getOpen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void shouldAddIssue() {
         repository.add(new Issue());
     }
@@ -29,15 +53,14 @@ public class IssueRepositoryTest {
         repository.add(second);
         repository.add(third);
         List<Issue> expected = new ArrayList<Issue>();
-        expected.add(first);
-        expected.add(third);
-        List<Issue> actual = repository.getByStatus(true);
+        expected.add(second);
+        List<Issue> actual = repository.getByStatus(false);
         assertEquals(expected, actual);
     }
 
     @Test
     void shouldGetByAssignee() {
-        String secondAssignee = "secondAssignee" ;
+        String secondAssignee = "secondAssignee";
         repository.add(first);
         repository.add(second);
         repository.add(third);
@@ -49,7 +72,7 @@ public class IssueRepositoryTest {
 
     @Test
     void shouldGetByTag() {
-        String secondTag = "secondTag" ;
+        String secondTag = "secondTag";
         repository.add(first);
         repository.add(second);
         repository.add(third);
@@ -61,7 +84,7 @@ public class IssueRepositoryTest {
 
     @Test
     void shouldGetByAuthor() {
-        String author = "author" ;
+        String author = "author";
         repository.add(first);
         repository.add(second);
         repository.add(third);
