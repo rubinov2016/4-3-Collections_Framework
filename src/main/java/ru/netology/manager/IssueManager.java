@@ -12,6 +12,14 @@ public class IssueManager {
         this.repository = repository;
     }
 
+    public void setStatusById(int id, boolean status) {
+        repository.setStatusById(id, status);
+    }
+
+    public void getOpen() {
+        repository.getOpen();
+    }
+
     public void add(Issue issue) {
         repository.add(issue);
     }

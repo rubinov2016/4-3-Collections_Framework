@@ -33,4 +33,32 @@ public class IssueManagerTest {
         List<Issue> actual = manager.getByAssignee(secondAssignee);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void shouldSetStatusById() {
+        IssueRepository repository = new IssueRepository();
+        IssueManager manager = new IssueManager(repository);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        boolean expected = false;
+        manager.setStatusById(first.getId(), expected);
+        Issue actualIssue = manager.getById(first.getId());
+        boolean actual = actualIssue.isStatus();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldGetOpen() {
+        IssueRepository repository = new IssueRepository();
+        IssueManager manager = new IssueManager(repository);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        List<Issue> expected = new ArrayList<Issue>();
+        expected.add(first);
+        expected.add(third);
+        List<Issue> actual = repository.getOpen();
+        assertEquals(expected, actual);
+    }
 }
